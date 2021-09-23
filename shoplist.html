@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<style>
+  .imgSet{
+    width: 200px;
+    height: 200px;
+  }
+</style>
+</head>
+
+<body onload="downloadList()">
+  <h2>選擇鞋子</h2>
+  <hr>
+  <ul id="shoplist">
+
+  </ul>
+  <h3>你選擇了:</h3>
+  <div id="selection"></div>
+  <!-- <button onClick="downloadList()">載入清單</button> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    //定義要用到的網址
+    var cataurl = "https://2017.awiclass.monoame.com/api/demo/shop"
+    var imgurl = "https://2017.awiclass.monoame.com/"
+
+    var items = []
+
+    //下載所有鞋子資料
+    function downloadList() {
+      $.ajax({
+        url: cataurl,
+        error: function () {
+          console.log("載入失敗")
+        },
+        success: function (res) {
+          console.log("載入所有鞋子資料");
+          items = res;
+          console.log(items);
+          var myhtml = '';
+          for (i = 0; i < items.length; i++) {
+            myhtml += "<li >" + items[i].name + "</li> <input type='button' value='detail' onClick='ShowData(" + items[i].id + ")'/>";
+          }
+          $("#shoplist").append(myhtml);
+
+        }
+      })
+    }
+
+    function ShowData(itemId) {
+      console.log(itemId);
+      $("#selection").empty();
+      var myhtml = '';
+      var itemObj = items.filter(x => x.id == itemId)[0];
+      console.log(itemObj);
+      myhtml += "<p>品名:" + itemObj.name + "</p>";
+      myhtml += "<img class='imgSet' src=" + imgurl + itemObj.img + ">";
+      $("#selection").append(myhtml);
+    }
+
+ </script>
+</body>
+
+</html>
