@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-<style>
-  .imgSet{
-    width: 200px;
-    height: 200px;
-  }
-</style>
+  <style>
+    .imgSet {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
 </head>
 
 <body onload="downloadList()">
@@ -27,15 +27,18 @@
     crossorigin="anonymous"></script>
   <script type="text/javascript">
     //定義要用到的網址
-    var cataurl = "https://2017.awiclass.monoame.com/api/demo/shop"
-    var imgurl = "https://2017.awiclass.monoame.com/"
-
+    var cataurl = "http://localhost:51007/api/Knife/GetKnifeData"
+    var imgurl = "https://2017.awiclass.monoame.com/"  
     var items = []
-
     //下載所有鞋子資料
     function downloadList() {
       $.ajax({
-        url: cataurl,
+        url: cataurl,       
+        method: "GET",
+        headers: {
+          "cache-control": "no-cache",
+          "postman-token": "14a18b97-9fb7-588f-9a8a-407044f99b38"
+        },
         error: function () {
           console.log("載入失敗")
         },
@@ -64,7 +67,7 @@
       $("#selection").append(myhtml);
     }
 
- </script>
+  </script>
 </body>
 
 </html>
